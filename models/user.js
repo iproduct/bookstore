@@ -1,4 +1,4 @@
-export default function (sequelize, DataTypes) {
+module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
@@ -7,8 +7,7 @@ export default function (sequelize, DataTypes) {
   }, {});
 
   User.associate = (models) => {
-    models.something();
-    return models;
+    // return models;
     // associations can be defined here
   };
   return User;
