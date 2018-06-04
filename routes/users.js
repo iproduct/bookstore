@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const UserService = require('../services/user-service');
-const NotFoundError = require('../errors/not-found-error')
+const NotFoundError = require('../errors/not-found-error');
 
 
 router.get('/', async function (req, res, next) {
@@ -10,8 +10,7 @@ router.get('/', async function (req, res, next) {
 });
 
 router.post('/', async function (req, res, next) {
-  const user = await UserService.update(req.body);
-
+  const user = await UserService.create(req.body);
   res.json(user);
 });
 
