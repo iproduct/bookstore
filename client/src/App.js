@@ -1,52 +1,63 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Route } from 'react-router-dom'
+
+import Books from './components/Books';
 import './App.css';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <a class="navbar-brand" href="#">Aurora Bookstore</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse"
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <a className="navbar-brand" href="#">Aurora Bookstore</a>
+          <button className="navbar-toggler" type="button" data-toggle="collapse"
                   data-target="#navbarNavAltMarkup"
                   aria-controls="navbarNavAltMarkup"
                   aria-expanded="false"
                   aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <a class="nav-item nav-link active" href="#">
+          <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div className="navbar-nav">
+              <Link to="/books" className="nav-item nav-link">
+                Books Router Test
+                <span className="sr-only">(current)</span>
+               </Link>
+              <a className="nav-item nav-link active" href="#">
                 Books
-                <span class="sr-only">(current)</span>
+                <span className="sr-only">(current)</span>
                </a>
 
-              <a class="nav-item nav-link" href="#">Readers</a>
-              <a class="nav-item nav-link" href="#">Pricing</a>
-              <a class="nav-item nav-link disabled" href="#">Disabled</a>
+              <a className="nav-item nav-link" href="#">Readers</a>
+              <a className="nav-item nav-link" href="#">Pricing</a>
+              <a className="nav-item nav-link disabled" href="#">Disabled</a>
             </div>
 
-            <ul class="navbar-nav ml-auto">
+            <ul className="navbar-nav ml-auto">
               <li>
-                <a class="nav-item nav-link" href="#">
+                <a className="nav-item nav-link" href="#">
                   Login
-                  <i class="fa fa-sign-in-alt"></i>
+                  <i className="fa fa-sign-in-alt"></i>
                 </a>
                </li>
                <li>
-                <a class="nav-item nav-link" href="#">
+                <a className="nav-item nav-link" href="#">
                   Logout
-                  <i class="fa fa-sign-out-alt"></i>
+                  <i className="fa fa-sign-out-alt"></i>
                 </a>
 
                </li>
                <li>
-                <a class="nav-item nav-link" href="#">Profile</a>
+                <a className="nav-item nav-link" href="#">Profile</a>
                </li>
             </ul>
           </div>
         </nav>
+        <div>
+          <Route path="/books" component={Books}/>
+        </div>
       </div>
     );
   }
