@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { Route } from 'react-router-dom'
 
 import Books from './components/Books';
+import Readers from './components/Readers';
+import Login from './components/Login';
+import Profile from './components/Profile';
 import './App.css';
 
 class App extends Component {
@@ -10,7 +13,10 @@ class App extends Component {
     return (
       <div className="App">
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <a className="navbar-brand" href="#">Aurora Bookstore</a>
+          <Link to="/books" className="navbar-brand">
+            Aurora Bookstore
+          </Link>
+
           <button className="navbar-toggler" type="button" data-toggle="collapse"
                   data-target="#navbarNavAltMarkup"
                   aria-controls="navbarNavAltMarkup"
@@ -22,41 +28,42 @@ class App extends Component {
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav">
               <Link to="/books" className="nav-item nav-link">
-                Books Router Test
-                <span className="sr-only">(current)</span>
-               </Link>
-              <a className="nav-item nav-link active" href="#">
+                <i class="fa fa-book"></i>&nbsp;
                 Books
-                <span className="sr-only">(current)</span>
-               </a>
-
-              <a className="nav-item nav-link" href="#">Readers</a>
-              <a className="nav-item nav-link" href="#">Pricing</a>
-              <a className="nav-item nav-link disabled" href="#">Disabled</a>
+              </Link>
+              <Link to="/readers" className="nav-item nav-link">
+                <i class="fas fa-users"></i>&nbsp;
+                Readers
+              </Link>
             </div>
 
             <ul className="navbar-nav ml-auto">
               <li>
-                <a className="nav-item nav-link" href="#">
+                <Link to="/profile" className="nav-item nav-link">
+                  <i class="fa fa-user-astronaut"></i>&nbsp;
+                  Profile
+                 </Link>
+               </li>
+              <li>
+                <Link to="/login" className="nav-item nav-link">
+                  <i className="fa fa-sign-in-alt"></i>&nbsp;
                   Login
-                  <i className="fa fa-sign-in-alt"></i>
-                </a>
+                 </Link>
                </li>
                <li>
-                <a className="nav-item nav-link" href="#">
+                <Link to="/login" className="nav-item nav-link">
+                  <i className="fa fa-sign-out-alt"></i>&nbsp;
                   Logout
-                  <i className="fa fa-sign-out-alt"></i>
-                </a>
-
-               </li>
-               <li>
-                <a className="nav-item nav-link" href="#">Profile</a>
+                 </Link>
                </li>
             </ul>
           </div>
         </nav>
         <div>
+          <Route path="/profile" component={Profile}/>
           <Route path="/books" component={Books}/>
+          <Route path="/login" component={Login}/>
+          <Route path="/readers" component={Readers}/>
         </div>
       </div>
     );

@@ -8,9 +8,7 @@ class Books extends Component {
 
   async componentDidMount() {
     const books = await axios.get('http://localhost:4000/users');
-    console.log(books);
-    debugger;
-    // this.setState({ books });
+    this.setState({ books });
   }
 
   render() {
