@@ -4,7 +4,7 @@ const BookService = require('../services/book-service');
 const NotFoundError = require('../errors/not-found-error');
 
 router.get('/', async function (req, res, next) {
-  const books = await BookService.query()
+  const books = await BookService.query();
   res.json(books);
 });
 

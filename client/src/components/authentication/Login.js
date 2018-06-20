@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 
-import UserService from '../services/UserService';
+import UserService from '../../services/UserService';
 
 class Login extends Component {
   constructor(props) {

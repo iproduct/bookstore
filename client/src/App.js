@@ -5,11 +5,15 @@ import { Redirect } from 'react-router';
 
 
 import UserService from './services/UserService';
-import Books from './components/Books';
-import Readers from './components/Readers';
-import Login from './components/Login';
-import Profile from './components/Profile';
-import Register from './components/Register';
+import BooksList from './components/books/BooksList';
+
+import UsersList from './components/users/UsersList';
+import User from './components/users/User';
+import EditProfile from './components/users/EditProfile';
+
+
+import Login from './components/authentication/Login';
+import Register from './components/authentication/Register';
 import './App.css';
 
 class App extends Component {
@@ -60,9 +64,9 @@ class App extends Component {
                 <i class="fa fa-book"></i>&nbsp;
                 Books
               </Link>
-              <Link to="/readers" className="nav-item nav-link">
+              <Link to="/users" className="nav-item nav-link">
                 <i class="fas fa-users"></i>&nbsp;
-                Readers
+                Users
               </Link>
             </div>
 
@@ -103,10 +107,11 @@ class App extends Component {
           {this.state.redirectToLogin && (<Redirect to="/login" />)}
          </div>
         <div>
-          <Route path="/profile" component={Profile}/>
-          <Route path="/books" component={Books}/>
+          <Route path="/edit_profile" component={EditProfile}/>
+          <Route path="/books" component={BooksList}/>
           <Route path="/login" component={Login}/>
-          <Route path="/readers" component={Readers}/>
+          <Route exact path="/users/:id" component={User}/>
+          <Route exact path="/users" component={UsersList}/>
           <Route path="/register" component={Register}/>
         </div>
       </div>

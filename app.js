@@ -12,19 +12,16 @@ const userRoutes = require('./routes/users');
 const bookRoutes = require('./routes/books');
 const authenticationRoutes = require('./routes/authentication');
 
+const { UNAUTHORIZED } = require('http-status-codes');
 
 const app = express();
+
+const NOT_LOGGED_IN = 'You are not logged in';
 
 app.use(cors({
   credentials: true,
   origin: true
 }));
-
-// app.use((req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-//   next();
-// });
 
 app.use(session({
   secret: 'keyboard cat',
@@ -44,11 +41,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/api/*', (err, req, res, next) => {
+  if (!req.session.userId) {
+    return res.status(UNAUTHORIZED).json({ status: UNAUTHORIZED, message: NOT_LOGGED_IN});
+  }
+  next();
+});
+
 // routes
 app.use('/', indexRouter);
 app.use('/authentication', authenticationRoutes);
-app.use('api/users', userRoutes);
-app.use('api//books', bookRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/books', bookRoutes);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => next(createError(404)));

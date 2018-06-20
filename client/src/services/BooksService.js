@@ -1,9 +1,9 @@
-import axios from 'axios';
+import Api from './Api';
 
-const BOOKS_ROUTE = '/api/books';
+const BOOKS_ROUTE = 'api/books';
 
 export default {
   query() {
-    return axios.get(BOOKS_ROUTE);
+    return Api.get(BOOKS_ROUTE);
   }
 };

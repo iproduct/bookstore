@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 
-import UserService from '../services/UserService';
+import UserService from '../../services/UserService';
 
 class Register extends Component {
 
@@ -77,7 +77,7 @@ class Register extends Component {
                       name="lastName"
                       value={this.state.user.lastName}
                       onChange={this.onChange}
-                      required/>
+                      required />
             </div>
 
             <button className="btn btn-lg btn-primary btn-block register-btn"
