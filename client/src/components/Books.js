@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import BooksService from '../services/BooksService';
 
 class Books extends Component {
   state = {
@@ -7,14 +8,15 @@ class Books extends Component {
   }
 
   async componentDidMount() {
-    const books = await axios.get('http://localhost:4000/users');
+    // TODO: pagination if there's time
+    const books = await BooksService.query();
     this.setState({ books });
   }
 
   render() {
     return (
       <div className="Books">
-        lorem
+        Books
       </div>
     );
   }

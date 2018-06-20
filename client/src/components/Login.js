@@ -1,15 +1,36 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 
+import UserService from '../services/UserService';
+
 class Login extends Component {
-  state = {
-    books: []
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {}
+    };
+
+    this.login = this.login.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
-  async componentDidMount() {
-    const books = await axios.get('http://localhost:4000/users');
-    this.setState({ books });
+  async login(evt) {
+    evt.preventDefault();
+    const user = await UserService.login(this.state.user);
+    console.log(user);
+    debugger;
+    const current = await UserService.getCurrent();
+    console.log(current);
+    debugger;
   }
+
+
+  onChange(e) {
+    this.state.user[e.target.name] = e.target.value;
+    this.setState(this.state.user);
+  }
+
+  async componentDidMount() {}
 
   render() {
     return (
@@ -21,6 +42,8 @@ class Login extends Component {
               <input className="form-control"
                       placeholder="Username"
                       name="username"
+                      value={this.state.user.username}
+                      onChange={this.onChange}
                       required
                       autofocus />
             </div>
@@ -28,11 +51,14 @@ class Login extends Component {
               <input className="form-control"
                      type="password"
                      name="password"
+                     value={this.state.user.password}
+                      onChange={this.onChange}
                      placeholder="Password"
                      required />
             </div>
 
-            <button className="btn btn-lg btn-primary btn-block signin-btn">
+            <button className="btn btn-lg btn-primary btn-block signin-btn"
+                    onClick={this.login}>
               <i className="fa fa-sign-in" aria-hidden="true"></i>
               Sign in
             </button>

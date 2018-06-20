@@ -30,3 +30,19 @@
 .login-wrapper {
   margin-top: 60px;
 }
+
+.screen-header {
+  margin-top: 20px;
+}
+
+.user-table {
+  margin-top: 40px;
+}
+
+ table.user-table td:first-child {
+  font-weight: bold;
+}
+
+.profile th, td {
+  width: 50px;
+}

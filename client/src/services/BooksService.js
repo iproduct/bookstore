@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const BOOKS_ROUTE = '/api/books';
+
 export default {
   query() {
-    return axios.get('http://localhost:3000/api/books');
+    return axios.get(BOOKS_ROUTE);
   }
 };

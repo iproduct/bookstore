@@ -7,7 +7,10 @@
   },
   "dependencies": {
     "bcrypt": "^2.0.1",
+    "connect-livereload": "^0.6.0",
     "cookie-parser": "~1.4.3",
+    "cookie-session": "^2.0.0-beta.3",
+    "cors": "^2.8.4",
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "express-session": "^1.15.6",

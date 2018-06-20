@@ -13,31 +13,34 @@ class Profile extends Component {
 
   render() {
     return (
-      <div className="Profile">
-        <h5 class="mb-3">User Profile</h5>
-        <table class="table">
-          <thead>
-
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">Name</th>
-              <td>Mark</td>
-            </tr>
-            <tr>
-              <th scope="row">Age</th>
-              <td>123</td>
-            </tr>
-            <tr>
-              <th scope="row">Name</th>
-              <td>Mark</td>
-            </tr>
-            <tr>
-              <th scope="row">Name</th>
-              <td>Mark</td>
-            </tr>
-          </tbody>
-        </table>
+      <div className="profile">
+        <div class="container">
+          <h3 class="text-center screen-header">User Profile</h3>
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <table class="table user-table">
+                <tbody>
+                  <tr>
+                    <td>First Name</td>
+                    <td>lorem</td>
+                  </tr>
+                  <tr>
+                    <td>Last Name</td>
+                    <td>lorem</td>
+                  </tr>
+                  <tr>
+                    <td>Email</td>
+                    <td>lorem@abv.bg</td>
+                  </tr>
+                  <tr>
+                    <td>Last login from</td>
+                    <td>lorem</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

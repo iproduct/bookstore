@@ -6,6 +6,7 @@ import Books from './components/Books';
 import Readers from './components/Readers';
 import Login from './components/Login';
 import Profile from './components/Profile';
+import Register from './components/Register';
 import './App.css';
 
 class App extends Component {
@@ -51,6 +52,12 @@ class App extends Component {
                  </Link>
                </li>
                <li>
+                <Link to="/register" className="nav-item nav-link">
+                  <i class="fas fa-user-plus"></i>&nbsp;
+                  Register
+                 </Link>
+               </li>
+               <li>
                 <Link to="/login" className="nav-item nav-link">
                   <i className="fa fa-sign-out-alt"></i>&nbsp;
                   Logout
@@ -64,6 +71,7 @@ class App extends Component {
           <Route path="/books" component={Books}/>
           <Route path="/login" component={Login}/>
           <Route path="/readers" component={Readers}/>
+          <Route path="/register" component={Register}/>
         </div>
       </div>
     );

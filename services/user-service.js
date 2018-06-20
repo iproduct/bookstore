@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 const models = require('../models');
 const { User } = models;
 
@@ -5,29 +7,34 @@ const { User } = models;
 const USER_NOT_FOUND_MESSAGE = 'User Not Found';
 const NotFoundError = require('../errors/not-found-error');
 
+// const generateSalt = util.promisify();
+
 module.exports = {
   query() {
     return User.findAll();
   },
 
   findById(id) {
-    return User.findById(id);
+    return User.findById(id,  {
+      attributes: { exclude: ['password'] }
+    });
   },
 
-  async findByEmail(email) {
-    const user = await User.find({ email });
-    if (user !== null) {
-      return user;
-    } else {
-      throw new NotFoundError(USER_NOT_FOUND_MESSAGE);
-    }
+  findByEmail(email) {
+    return User.findOne({ where: { email } });
   },
 
-  validatePassword(user, password) {
-    return bcrypt.compareSync(password, user.password);
+  hasValidPassword(userPassword, password) {
+    return bcrypt.compare(userPassword, password);
   },
 
-  create(user) {
+  async create(user) {
+    const saltRounds = 10;
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hash = await bcrypt.hash(user.password, salt);
+
+    user.password = hash;
+
     return User.create(user);
   },
 
