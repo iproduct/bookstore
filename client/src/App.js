@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Route } from 'react-router-dom'
 
+
+import UserService from './services/UserService';
 import Books from './components/Books';
 import Readers from './components/Readers';
 import Login from './components/Login';
@@ -10,6 +12,28 @@ import Register from './components/Register';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      current: {}
+    };
+
+    this.logout = this.logout.bind(this);
+   }
+
+   logout(evt) {
+     evt.preventDefault();
+     UserService.logout();
+   }
+
+
+  async componentDidMount() {
+    const current = await UserService.getCurrent();
+    console.log(current);
+    debugger;
+    this.setState({ current });
+  }
+
   render() {
     return (
       <div className="App">
@@ -38,32 +62,37 @@ class App extends Component {
               </Link>
             </div>
 
-            <ul className="navbar-nav ml-auto">
-              <li>
-                <Link to="/profile" className="nav-item nav-link">
-                  <i class="fa fa-user-astronaut"></i>&nbsp;
-                  Profile
-                 </Link>
-               </li>
-              <li>
-                <Link to="/login" className="nav-item nav-link">
-                  <i className="fa fa-sign-in-alt"></i>&nbsp;
-                  Login
-                 </Link>
-               </li>
-               <li>
-                <Link to="/register" className="nav-item nav-link">
-                  <i class="fas fa-user-plus"></i>&nbsp;
-                  Register
-                 </Link>
-               </li>
-               <li>
-                <Link to="/login" className="nav-item nav-link">
-                  <i className="fa fa-sign-out-alt"></i>&nbsp;
-                  Logout
-                 </Link>
-               </li>
-            </ul>
+              {this.state.current && this.state.current.id ? (
+                <ul className="navbar-nav ml-auto">
+                  <li>
+                    <Link to="/profile" className="nav-item nav-link">
+                      <i class="fa fa-user-astronaut"></i>&nbsp;
+                      {(this.state.current || {}).email}
+                    </Link>
+                  </li>
+                  <li>
+                    <a className="nav-item nav-link" onClick={this.logout} href="#">
+                       <i className="fa fa-sign-out-alt"></i>&nbsp;
+                       Logout
+                    </a>
+                  </li>
+                </ul>
+              ) : (
+                <ul className="navbar-nav ml-auto">
+                  <li>
+                    <Link to="/login" className="nav-item nav-link">
+                      <i className="fa fa-sign-in-alt"></i>&nbsp;
+                      Login
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/register" className="nav-item nav-link">
+                      <i class="fas fa-user-plus"></i>&nbsp;
+                      Register
+                    </Link>
+                  </li>
+                </ul>
+              )}
           </div>
         </nav>
         <div>

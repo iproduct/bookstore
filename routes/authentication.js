@@ -24,16 +24,16 @@ router.post('/login', async function (req, res, next) {
 
   if (hasValidPassword) {
     req.session.userId = user.id;
-    req.session.views = req.session.views || 0;
-    req.session.views++;
     req.session.save();
-    console.log('-------:', req.session.userId);
-    console.log('views: ', req.session.views);
-
     return res.json(user);
   } else {
     res.status(UNAUTHORIZED);
   }
+});
+
+router.post('/logout', function (req, res, next) {
+  req.session.userId = null;
+  return res.status(200).end();
 });
 
 router.post('/register', async function (req, res, next) {
