@@ -17,6 +17,8 @@ class Books extends Component {
     return (
       <div className="Books">
         Books
+        <h3>Books</h3>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed expedita nam quidem, consequatur, eius eos nihil quam itaque consectetur distinctio architecto cum esse, impedit quibusdam cupiditate delectus magnam molestias porro.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore adipisci, optio iste dolorum eligendi facere totam. Voluptas dicta tempora, illum, quo provident maiores qui, deleniti laborum perspiciatis voluptate aliquid veniam.
       </div>
     );
   }

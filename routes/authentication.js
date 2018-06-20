@@ -41,11 +41,13 @@ router.post('/register', async function (req, res, next) {
   const existingUser = await UserService.findByEmail(email);
 
   if (existingUser) {
-    return res.status(CONFLICT).send({ status: CONFLICT, error: USER_ALREADY_EXISTS });
+    return res.status(CONFLICT)
+              .send({ status: CONFLICT, error: USER_ALREADY_EXISTS });
   }
 
   if (password !== repeatPassword) {
-    return res.json({ status: BAD_REQUEST, error: PASSWORDS_DO_NOT_MATCH });
+    return res.status(BAD_REQUEST)
+              .json({ status: BAD_REQUEST, error: PASSWORDS_DO_NOT_MATCH });
   }
 
   const user = await UserService.create(req.body);

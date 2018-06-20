@@ -30,9 +30,9 @@ app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
+  expires: new Date(Date.now() + 3600000),
   cookie: {
     expires: new Date(Date.now() + 3600000),
-    maxAge: 30 * 60 * 1000 * 1800,
     secure: false,
     httpOnly: false
   }

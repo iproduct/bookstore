@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Route } from 'react-router-dom'
+import { Redirect } from 'react-router';
 
 
 import UserService from './services/UserService';
@@ -15,22 +16,25 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      current: {}
+      current: {},
+      redirectToLogin: false
     };
 
     this.logout = this.logout.bind(this);
    }
 
-   logout(evt) {
+   async logout(evt) {
      evt.preventDefault();
-     UserService.logout();
-   }
+     await UserService.logout();
 
+     this.setState({
+       current: {},
+       redirectToLogin: true
+     });
+   }
 
   async componentDidMount() {
     const current = await UserService.getCurrent();
-    console.log(current);
-    debugger;
     this.setState({ current });
   }
 
@@ -39,7 +43,7 @@ class App extends Component {
       <div className="App">
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <Link to="/books" className="navbar-brand">
-            Aurora Bookstore
+            Bookstore
           </Link>
 
           <button className="navbar-toggler" type="button" data-toggle="collapse"
@@ -95,6 +99,9 @@ class App extends Component {
               )}
           </div>
         </nav>
+        <div>
+          {this.state.redirectToLogin && (<Redirect to="/login" />)}
+         </div>
         <div>
           <Route path="/profile" component={Profile}/>
           <Route path="/books" component={Books}/>

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import { Redirect } from 'react-router';
 
 import UserService from '../services/UserService';
 
@@ -7,7 +8,8 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {}
+      user: {},
+      redirectToBooks: false
     };
 
     this.login = this.login.bind(this);
@@ -17,13 +19,13 @@ class Login extends Component {
   async login(evt) {
     evt.preventDefault();
     const user = await UserService.login(this.state.user);
-    console.log(user);
-    debugger;
     const current = await UserService.getCurrent();
-    console.log(current);
-    debugger;
+    this.setState({
+      user: this.state.user,
+      redirectToBooks: true
+    });
+    window.location.reload();
   }
-
 
   onChange(e) {
     this.state.user[e.target.name] = e.target.value;
@@ -35,6 +37,9 @@ class Login extends Component {
   render() {
     return (
       <div className="Login">
+        <div>
+          {this.state.redirectToBooks && (<Redirect to="/books" />)}
+        </div>
         <div className="container col-md-4 col-md-offset-4 login-wrapper">
           <form className="form-login">
             <h2 className="form-login-heading">Please Sign In</h2>
