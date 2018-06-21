@@ -4,8 +4,9 @@ import { Redirect } from 'react-router';
 
 import UserService from './services/UserService';
 import BooksList from './components/books/BooksList';
+import BookDetails from './components/books/BookDetails';
 import UsersList from './components/users/UsersList';
-import User from './components/users/User';
+import UserDetails from './components/users/UserDetails';
 import Basket from './components/users/Basket';
 import EditProfile from './components/users/EditProfile';
 import Login from './components/authentication/Login';
@@ -109,13 +110,14 @@ class App extends Component {
           {this.state.redirectToLogin && (<Redirect to="/login" />)}
          </div>
         <div>
-          <Route path="/edit_profile" component={EditProfile}/>
-          <Route path="/books" component={BooksList}/>
-          <Route path="/login" component={Login}/>
+          <Route exact path="/edit_profile" component={EditProfile}/>
+          <Route exact path="/books" component={BooksList}/>
+          <Route exact path="/books/:id" component={BookDetails}/>
+          <Route exact path="/login" component={Login}/>
           <Route exact path="/users" component={UsersList}/>
-          <Route exact path="/users/:id" component={User}/>
+          <Route exact path="/users/:id" component={UserDetails}/>
           <Route exact path="/basket" component={Basket}/>
-          <Route path="/register" component={Register}/>
+          <Route exact path="/register" component={Register}/>
         </div>
       </div>
     );

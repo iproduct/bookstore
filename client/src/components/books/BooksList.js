@@ -1,8 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
-
 import BooksService from '../../services/BooksService';
 
 import ReactDOM from 'react-dom';
@@ -103,7 +101,7 @@ class BooksList extends Component {
                     <img src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1394340655i/1931116._SX120_.jpg" />
                   </td>
                   <td>
-                    <Link to="/books/:id" params={{ id: book.id }}>
+                    <Link to={'/books/'+book.id }>
                       {book.title}
                     </Link>
                   </td>

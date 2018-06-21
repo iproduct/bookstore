@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+
+import { Link } from 'react-router-dom';
 import UserService from '../../services/UserService';
 
 class UsersList extends Component {
@@ -36,9 +38,15 @@ class UsersList extends Component {
               {this.state.users.map((user) => (
                 <tr>
                   <td>
-                    <img src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1394340655i/1931116._SX120_.jpg" />
+                    <img src="https://cdn2.iconfinder.com/data/icons/flaturici-set-4/512/user-512.png"
+                         width="60" height="60"/>
                   </td>
-                  <td>{user.username}</td>
+
+                  <td>
+                    <Link to={'/users/'+user.id }>
+                      {user.username}
+                    </Link>
+                  </td>
                   <td>{user.firstName}</td>
                   <td>{user.lastName}</td>
                   <td>{user.email}</td>

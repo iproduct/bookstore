@@ -33,12 +33,20 @@ class Register extends Component {
         <div className="container col-md-4 col-md-offset-4 login-wrapper">
           <form className="form-login">
             <h2 className="form-login-heading">Register</h2>
+            <div className="form-group">
+              <input className="form-control"
+                      value={this.state.user.username}
+                      onChange={this.onChange}
+                      placeholder="Username"
+                      name="username"
+                      required/>
+            </div>
 
             <div className="form-group">
               <input className="form-control"
                       value={this.state.user.email}
                       onChange={this.onChange}
-                      placeholder="Email (Username)"
+                      placeholder="Email"
                       name="email"
                       required/>
             </div>
@@ -76,6 +84,15 @@ class Register extends Component {
                       placeholder="Last Name"
                       name="lastName"
                       value={this.state.user.lastName}
+                      onChange={this.onChange}
+                      required />
+            </div>
+
+            <div className="form-group">
+              <textarea className="form-control"
+                      placeholder="Bio"
+                      name="bio"
+                      value={this.state.user.bio}
                       onChange={this.onChange}
                       required />
             </div>

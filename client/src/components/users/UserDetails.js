@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import UserService from '../../services/UserService';
 
-class User extends Component {
+class UserDetails extends Component {
 
   constructor(props) {
     super(props);
@@ -23,7 +23,7 @@ class User extends Component {
 
   render() {
     return (
-      <div className="User">
+      <div className="UserDetails">
         <div class="container">
           <h3 class="text-center screen-header">User Profile</h3>
           <div class="row">
@@ -60,4 +60,4 @@ class User extends Component {
   }
 }
 
-export default User;
+export default UserDetails;
