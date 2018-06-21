@@ -14,7 +14,7 @@ router.post('/', async function (req, res, next) {
 });
 
 router.get('/:id', async function (req, res, next) {
-  const book = await BookService.findById(req.params.id)
+  const book = await BookService.findById(req.params.id);
   res.json(book);
 });
 

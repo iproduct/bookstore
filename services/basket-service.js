@@ -1,24 +1,29 @@
 const bcrypt = require('bcrypt');
 
 const models = require('../models');
-const { User } = models;
+const { BasketItem } = models;
 
 // todo: move this to messages constant module
-const USER_NOT_FOUND_MESSAGE = 'User Not Found';
 const NotFoundError = require('../errors/not-found-error');
+const BASKET_ITEM_NOT_FOUND = 'Basket Item Not Found';
 
 module.exports = {
-  query() {
-    return User.findAll();
+  get(ownerId) {
+    return BasketItem.findAll({ where: { ownerId } });
   },
 
-  findById(id) {
-    return User.findById(id,  {
-      attributes: { exclude: ['password'] }
-    });
+  add(item) {
+    return BasketItem.create(item);
   },
 
-  findByEmail(email) {
+  async delete(id) {
+    const item = await BasketItem.findById(id);
+    if (item) {
+      item.delete();
+    } else {
+      throw new NotFoundError(BASKET_ITEM_NOT_FOUND);
+    }
+
     return User.findOne({ where: { email } });
   },
 

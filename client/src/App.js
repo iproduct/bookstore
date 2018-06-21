@@ -3,15 +3,12 @@ import { Link } from 'react-router-dom';
 import { Route } from 'react-router-dom'
 import { Redirect } from 'react-router';
 
-
 import UserService from './services/UserService';
 import BooksList from './components/books/BooksList';
-
 import UsersList from './components/users/UsersList';
 import User from './components/users/User';
+import Basket from './components/users/Basket';
 import EditProfile from './components/users/EditProfile';
-
-
 import Login from './components/authentication/Login';
 import Register from './components/authentication/Register';
 import './App.css';
@@ -61,11 +58,11 @@ class App extends Component {
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav">
               <Link to="/books" className="nav-item nav-link">
-                <i class="fa fa-book"></i>&nbsp;
+                <i className="fa fa-book"></i>&nbsp;
                 Books
               </Link>
               <Link to="/users" className="nav-item nav-link">
-                <i class="fas fa-users"></i>&nbsp;
+                <i className="fas fa-users"></i>&nbsp;
                 Users
               </Link>
             </div>
@@ -73,8 +70,14 @@ class App extends Component {
               {this.state.current && this.state.current.id ? (
                 <ul className="navbar-nav ml-auto">
                   <li>
+                    <Link to="/basket" className="nav-item nav-link">
+                      <i className="fa fa-user-astronaut"></i>&nbsp;
+                      {(this.state.current || {}).email}
+                    </Link>
+                  </li>
+                  <li>
                     <Link to="/profile" className="nav-item nav-link">
-                      <i class="fa fa-user-astronaut"></i>&nbsp;
+                      <i className="fa fa-user-astronaut"></i>&nbsp;
                       {(this.state.current || {}).email}
                     </Link>
                   </li>
@@ -95,7 +98,7 @@ class App extends Component {
                   </li>
                   <li>
                     <Link to="/register" className="nav-item nav-link">
-                      <i class="fas fa-user-plus"></i>&nbsp;
+                      <i className="fas fa-user-plus"></i>&nbsp;
                       Register
                     </Link>
                   </li>
@@ -110,8 +113,9 @@ class App extends Component {
           <Route path="/edit_profile" component={EditProfile}/>
           <Route path="/books" component={BooksList}/>
           <Route path="/login" component={Login}/>
-          <Route exact path="/users/:id" component={User}/>
           <Route exact path="/users" component={UsersList}/>
+          <Route exact path="/users/:id" component={User}/>
+          <Route exact path="/basket" component={Basket}/>
           <Route path="/register" component={Register}/>
         </div>
       </div>

@@ -20,6 +20,14 @@ module.exports = {
         type: Sequelize.STRING
       },
 
+      username: {
+        type: Sequelize.STRING
+      },
+
+      bio: {
+        type: Sequelize.TEXT
+      },
+
       password: {
         type: Sequelize.STRING
       },

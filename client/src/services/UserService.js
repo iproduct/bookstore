@@ -24,5 +24,17 @@ export default {
 
   getCurrent() {
     return Api.get('authentication/current');
+  },
+
+  getBasket() {
+    return Api.get(`api/basket`);
+  },
+
+  addBasketItem(userId, item) {
+    return Api.post(`api/basket`, item);
+  },
+
+  removeBasketItem(userId, itemId) {
+    return Api.post(`api/basket/${itemId}`);
   }
 };

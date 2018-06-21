@@ -1,25 +1,24 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 
-import BooksService from '../../services/BooksService';
+import UserService from '../../services/UserService';
 
-class BooksList extends Component {
+class Basket extends Component {
   state = {
-    books: []
+    items: []
   }
 
   async componentDidMount() {
-    // TODO: pagination if there's time
-    const books = await BooksService.query();
-    this.setState({ books });
+    const items = await UserService.getBasket();
+    this.setState({ items });
   }
 
   render() {
     return (
-      <div className="BooksList">
+      <div className="Basket">
         <h3>Books</h3>
         <div>
-          <table className="table">
+          <table class="table">
             <thead>
               <tr>
                 <th scope="col">cover</th>
@@ -35,7 +34,7 @@ class BooksList extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.books.map((book) => (
+              {this.state.items.map((item) => (
                 <tr>
                   <td scope="row">pic</td>
                   <td>Mark</td>
@@ -57,4 +56,4 @@ class BooksList extends Component {
   }
 }
 
-export default BooksList;
+export default Basket;

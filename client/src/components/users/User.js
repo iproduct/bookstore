@@ -16,11 +16,8 @@ class User extends Component {
 
   async componentDidMount() {
     // take current from api for now, optimize later
-    console.log(this.props);
-    debugger;
-    const user = await UserService.get(this.props.match.params.id);
-    console.log(user);
-    debugger;
+    const { id } = this.props.match.params;
+    const user = await UserService.get(id);
     this.setState({ user });
   }
 
