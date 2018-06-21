@@ -10,6 +10,7 @@ const cors = require('cors');
 const indexRouter = require('./routes/index');
 const userRoutes = require('./routes/users');
 const bookRoutes = require('./routes/books');
+const basketRoutes = require('./routes/basket');
 const authenticationRoutes = require('./routes/authentication');
 
 const { UNAUTHORIZED } = require('http-status-codes');
@@ -27,9 +28,9 @@ app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  expires: new Date(Date.now() + 3600000),
+  expires: new Date(Date.now() + 3600000*10000),
   cookie: {
-    expires: new Date(Date.now() + 3600000),
+    expires: new Date(Date.now() + 3600000*10000),
     secure: false,
     httpOnly: false
   }
@@ -53,6 +54,7 @@ app.use('/', indexRouter);
 app.use('/authentication', authenticationRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/books', bookRoutes);
+app.use('/api/basket', basketRoutes);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => next(createError(404)));

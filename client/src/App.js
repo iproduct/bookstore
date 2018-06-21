@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Route } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 
 import UserService from './services/UserService';
@@ -70,15 +69,15 @@ class App extends Component {
               {this.state.current && this.state.current.id ? (
                 <ul className="navbar-nav ml-auto">
                   <li>
-                    <Link to="/basket" className="nav-item nav-link">
+                    <Link to="/profile" className="nav-item nav-link">
                       <i className="fa fa-user-astronaut"></i>&nbsp;
                       {(this.state.current || {}).email}
                     </Link>
                   </li>
                   <li>
-                    <Link to="/profile" className="nav-item nav-link">
-                      <i className="fa fa-user-astronaut"></i>&nbsp;
-                      {(this.state.current || {}).email}
+                    <Link to="/basket" className="nav-item nav-link">
+                      <i class="fa fa-shopping-basket"></i>&nbsp;
+                      Basket
                     </Link>
                   </li>
                   <li>

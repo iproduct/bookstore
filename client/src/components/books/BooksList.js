@@ -1,15 +1,72 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
 
 import BooksService from '../../services/BooksService';
 
+import ReactDOM from 'react-dom';
+import Modal from 'react-modal';
+
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
+
+// Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
+Modal.setAppElement(document.getElementById('root'));
+
 class BooksList extends Component {
-  state = {
-    books: []
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      books: [],
+      newBook: {},
+      modalIsOpen: false
+    };
+
+    this.openModal = this.openModal.bind(this);
+    this.afterOpenModal = this.afterOpenModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.addBook = this.addBook.bind(this);
+    this.onChange = this.onChange.bind(this);
+  }
+
+  openModal() {
+    this.setState({ modalIsOpen: true });
+  }
+
+  onChange(e) {
+    this.state.newBook[e.target.name] = e.target.value;
+    this.setState(this.state.newBook);
+  }
+
+  async addBook() {
+    const addedBook = await BooksService.add(this.state.newBook);
+    const books = this.state.books.concat([addedBook]);
+
+    this.setState({ books });
+    this.closeModal();
+  }
+
+  afterOpenModal() {
+    // nothing so far but keep
+    // references are now sync'd and can be accessed.
+    // this.subtitle.style.color = '#f00';
+  }
+
+  closeModal() {
+    this.setState({ modalIsOpen: false, newBook: {} });
   }
 
   async componentDidMount() {
-    // TODO: pagination if there's time
     const books = await BooksService.query();
     this.setState({ books });
   }
@@ -17,40 +74,134 @@ class BooksList extends Component {
   render() {
     return (
       <div className="BooksList">
-        <h3>Books</h3>
+        <div className="row operations-row">
+          <button className="btn btn-primary btn-sm" onClick={this.openModal}>
+            <i class="fas fa-plus"></i>&nbsp;
+            Add New Book
+          </button>
+        </div>
         <div>
           <table className="table">
             <thead>
               <tr>
-                <th scope="col">cover</th>
-                <th scope="col">title</th>
-                <th scope="col">raiting</th>
-                <th scope="col">pages</th>
-                <th scope="col">price</th>
-                <th scope="col">quantity</th>
-                <th scope="col">publisher</th>
-                <th scope="col">raiting</th>
-                <th scope="col">genre</th>
+                <th scope="col">Cover</th>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Pages</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Publisher</th>
+                <th scope="col">Genre</th>
 
               </tr>
             </thead>
             <tbody>
               {this.state.books.map((book) => (
                 <tr>
-                  <td scope="row">pic</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
+                  <td>
+                    <img src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1394340655i/1931116._SX120_.jpg" />
+                  </td>
+                  <td>
+                    <Link to="/books/:id" params={{ id: book.id }}>
+                      {book.title}
+                    </Link>
+                  </td>
+                  <td>{book.author}</td>
+                  <td>{book.rating}</td>
+                  <td>{book.pages}</td>
+                  <td>{book.price}</td>
+                  <td>{book.quantity}</td>
+                  <td>{book.publisher}</td>
+                  <td>{book.genre}</td>
                 </tr>
                )
               )}
             </tbody>
           </table>
+          <div>
+            <Modal isOpen={this.state.modalIsOpen}
+                   onAfterOpen={this.afterOpenModal}
+                   onRequestClose={this.closeModal}
+                   style={customStyles}
+                   contentLabel="Book Modal">
+              <h2 ref={subtitle => this.subtitle = subtitle}>Add a Book</h2>
+              <form className="form-add-book">
+                <div className="form-group">
+                  <input className="form-control"
+                          value={this.state.newBook.title}
+                          onChange={this.onChange}
+                          placeholder="Title"
+                          name="title" />
+                </div>
+
+                <div className="form-group">
+                  <input className="form-control"
+                         value={this.state.newBook.author}
+                         onChange={this.onChange}
+                         name="author"
+                         placeholder="Author"/>
+                </div>
+
+                <div className="form-group">
+                  <input className="form-control"
+                         value={this.state.newBook.publisher}
+                         onChange={this.onChange}
+                         name="publisher"
+                         placeholder="Publisher"/>
+                </div>
+
+                <div className="form-group">
+                  <input className="form-control"
+                         value={this.state.newBook.quantity}
+                         onChange={this.onChange}
+                         name="quantity"
+                         placeholder="Quantity"/>
+                </div>
+
+                <div className="form-group">
+                  <input className="form-control"
+                         value={this.state.newBook.rating}
+                         onChange={this.onChange}
+                         name="rating"
+                         placeholder="Rating"/>
+                </div>
+
+                <div className="form-group">
+                  <input className="form-control"
+                         value={this.state.newBook.pages}
+                         onChange={this.onChange}
+                         name="pages"
+                         placeholder="Pages"/>
+                </div>
+
+                <div className="form-group">
+                  <input className="form-control"
+                         value={this.state.newBook.price}
+                         onChange={this.onChange}
+                         name="price"
+                         placeholder="Price"/>
+                </div>
+
+                <div className="form-group">
+                  <input className="form-control"
+                         value={this.state.newBook.genre}
+                         onChange={this.onChange}
+                         name="genre"
+                         placeholder="Genre"/>
+                </div>
+
+              </form>
+              <button className="btn btn-primary"
+                      onClick={this.addBook}>
+                Add
+              </button>
+
+              <button className="btn btn-primary" onClick={this.closeModal}>
+                Cancel
+              </button>
+            </Modal>
+          </div>
         </div>
       </div>
     );

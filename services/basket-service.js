@@ -16,7 +16,7 @@ module.exports = {
     return BasketItem.create(item);
   },
 
-  async deleteBasketItem(id) {
+  async removeBasketItem(id) {
     const item = await BasketItem.findById(id);
     if (item) {
       item.delete();

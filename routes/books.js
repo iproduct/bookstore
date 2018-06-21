@@ -10,6 +10,7 @@ router.get('/', async function (req, res, next) {
 
 router.post('/', async function (req, res, next) {
   const book = await BookService.create(req.body);
+  // TODO: check whether the current user is admin
   res.json(book);
 });
 

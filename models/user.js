@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     username: DataTypes.STRING,
-    bio: DataTypes.TEXT
+    bio: DataTypes.TEXT,
+    isAdmin: DataTypes.BOOLEAN
   }, {
     classMethods: {
       associate(models) {}

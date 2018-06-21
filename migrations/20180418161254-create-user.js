@@ -28,6 +28,10 @@ module.exports = {
         type: Sequelize.TEXT
       },
 
+      isAdmin: {
+        type: Sequelize.BOOLEAN
+      },
+
       password: {
         type: Sequelize.STRING
       },
