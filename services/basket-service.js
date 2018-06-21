@@ -8,15 +8,15 @@ const NotFoundError = require('../errors/not-found-error');
 const BASKET_ITEM_NOT_FOUND = 'Basket Item Not Found';
 
 module.exports = {
-  get(ownerId) {
+  getBasketItems(ownerId) {
     return BasketItem.findAll({ where: { ownerId } });
   },
 
-  add(item) {
+  addBasketItem(item) {
     return BasketItem.create(item);
   },
 
-  async delete(id) {
+  async deleteBasketItem(id) {
     const item = await BasketItem.findById(id);
     if (item) {
       item.delete();
