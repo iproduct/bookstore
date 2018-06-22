@@ -22,6 +22,10 @@ module.exports = {
     return User.findOne({ where: { email } });
   },
 
+  findByUsername(username) {
+    return User.findOne({ where: { username } });
+  },
+
   hasValidPassword(userPassword, password) {
     return bcrypt.compare(userPassword, password);
   },
@@ -47,5 +51,10 @@ module.exports = {
     } else {
       throw new NotFoundError(USER_NOT_FOUND_MESSAGE);
     }
-  }
+  },
+
+  getBasketItems(ownerId) {
+    return this.findById(ownerId).findAll({ where: { ownerId } });
+  },
+
 };

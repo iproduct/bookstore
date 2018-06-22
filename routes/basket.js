@@ -7,21 +7,21 @@ router.get('', async function (req, res, next) {
   res.json(basketItems);
 });
 
-
 router.post('', async function (req, res, next) {
   const { userId } = req.session;
-  const item = Object.assign({ userId }, req.body);
-  const basketItems = await BasketService.addBasketItems(item);
+  const bookId = req.body.id;
 
-  res.json(basketItems);
+  const basketItem = await BasketService.addBasketItem(userId, bookId);
+
+  return res.json(basketItem);
 });
 
 router.delete('/:id', async function (req, res, next) {
   const { userId } = req.session;
-  const item = Object.assign({ userId }, req.body);
-  const basketItems = await BasketService.removeBasketItems(item);
+  const { id } = req.params;
+  const basketItems = await BasketService.removeBasketItem(userId, id);
 
-  res.json(basketItems);
+  return res.json(basketItems);
 });
 
 module.exports = router;

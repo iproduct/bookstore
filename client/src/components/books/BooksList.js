@@ -31,7 +31,6 @@ class BooksList extends Component {
     };
 
     this.openModal = this.openModal.bind(this);
-    this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.addBook = this.addBook.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -52,12 +51,6 @@ class BooksList extends Component {
 
     this.setState({ books });
     this.closeModal();
-  }
-
-  afterOpenModal() {
-    // nothing so far but keep
-    // references are now sync'd and can be accessed.
-    // this.subtitle.style.color = '#f00';
   }
 
   closeModal() {
@@ -186,18 +179,21 @@ class BooksList extends Component {
                          value={this.state.newBook.genre}
                          onChange={this.onChange}
                          name="genre"
-                         placeholder="Genre"/>
+                         placeholder="Genre" />
                 </div>
 
               </form>
-              <button className="btn btn-primary"
-                      onClick={this.addBook}>
-                Add
-              </button>
+              <div className="details-button-group">
+                <button className="btn btn-success" onClick={this.addBook}>
+                  <i class="fas fa-plus"></i>&nbsp;
+                  Add
+                </button>
 
-              <button className="btn btn-primary" onClick={this.closeModal}>
-                Cancel
-              </button>
+                <button className="btn btn-info" onClick={this.closeModal}>
+                  <i class="fas fa-times"></i>&nbsp;
+                  Cancel
+                </button>
+              </div>
             </Modal>
           </div>
         </div>

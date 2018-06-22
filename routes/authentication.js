@@ -14,20 +14,19 @@ router.get('/current', async function (req, res, next) {
 
 router.post('/login', async function (req, res, next) {
   const { username, password } = req.body;
-  const user = await UserService.findByEmail(username);
+  const user = await UserService.findByUsername(username);
 
   if (!user) {
     return res.status(NOT_FOUND).send({ status: NOT_FOUND, error: USER_NOT_FOUND });
   }
   const hasValidPassword = await UserService.hasValidPassword(password, user.password);
-  console.log(hasValidPassword);
 
   if (hasValidPassword) {
     req.session.userId = user.id;
     req.session.save();
     return res.json(user);
   } else {
-    res.status(UNAUTHORIZED);
+    res.status(UNAUTHORIZED).end();
   }
 });
 
@@ -41,13 +40,11 @@ router.post('/register', async function (req, res, next) {
   const existingUser = await UserService.findByEmail(email);
 
   if (existingUser) {
-    return res.status(CONFLICT)
-              .send({ status: CONFLICT, error: USER_ALREADY_EXISTS });
+    return res.status(CONFLICT).send({ status: CONFLICT, error: USER_ALREADY_EXISTS });
   }
 
   if (password !== repeatPassword) {
-    return res.status(BAD_REQUEST)
-              .json({ status: BAD_REQUEST, error: PASSWORDS_DO_NOT_MATCH });
+    return res.status(BAD_REQUEST).json({ status: BAD_REQUEST, error: PASSWORDS_DO_NOT_MATCH });
   }
 
   const user = await UserService.create(req.body);

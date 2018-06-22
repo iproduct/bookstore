@@ -43,6 +43,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/*', (err, req, res, next) => {
+  console.log('-----------------------------------------');
   if (!req.session.userId) {
     return res.status(UNAUTHORIZED).json({ status: UNAUTHORIZED, message: NOT_LOGGED_IN});
   }

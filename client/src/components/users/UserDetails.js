@@ -24,11 +24,11 @@ class UserDetails extends Component {
   render() {
     return (
       <div className="UserDetails">
-        <div class="container">
-          <h3 class="text-center screen-header">User Profile</h3>
-          <div class="row">
-            <div class="col-md-6 offset-md-3">
-              <table class="table user-table">
+        <div className="container">
+          <h3 className="text-center screen-header">User Profile</h3>
+          <div className="row">
+            <div className="col-md-6 offset-md-3">
+              <table className="table user-table">
                 <tbody>
                   <tr>
                     <td>First Name</td>
@@ -47,13 +47,19 @@ class UserDetails extends Component {
                     <td>{(this.state.user || {}).email}</td>
                   </tr>
                   <tr>
-                    <td>Genres</td>
-                    <td>not in db for now, will add soon</td>
+                    <td>Bio</td>
+                    <td>{(this.state.user || {}).bio}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
+          <div className="details-button-group">
+             <button className="btn btn-info">
+               <i className="fas fa-user-edit"></i>&nbsp;
+               Edit
+             </button>
+           </div>
         </div>
       </div>
     );

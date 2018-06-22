@@ -1,56 +1,31 @@
 const bcrypt = require('bcrypt');
-
 const models = require('../models');
-const { BasketItem } = models;
-
-// todo: move this to messages constant module
+const { Book, Basket, User } = models;
 const NotFoundError = require('../errors/not-found-error');
 const BASKET_ITEM_NOT_FOUND = 'Basket Item Not Found';
+const BOOK_NOT_FOUND = 'Book Not Found';
 
 module.exports = {
-  getBasketItems(ownerId) {
-    return BasketItem.findAll({ where: { ownerId } });
+
+  async getBasketItems(ownerId) {
+    const user = await User.findById(ownerId);
+    return user.getBasketItems();
   },
 
-  addBasketItem(item) {
-    return BasketItem.create(item);
-  },
+  async addBasketItem(ownerId, bookId) {
+    const user = await User.findById(ownerId);
+    const book = await Book.findById(bookId);
 
-  async removeBasketItem(id) {
-    const item = await BasketItem.findById(id);
-    if (item) {
-      item.delete();
-    } else {
-      throw new NotFoundError(BASKET_ITEM_NOT_FOUND);
+    if (!book) {
+      throw new NotFoundError(BOOK_NOT_FOUND);
     }
 
-    return User.findOne({ where: { email } });
+    return user.addBasketItem(book);
   },
 
-  hasValidPassword(userPassword, password) {
-    return bcrypt.compare(userPassword, password);
-  },
-
-  async create(user) {
-    const saltRounds = 10;
-    const salt = await bcrypt.genSalt(saltRounds);
-    const hash = await bcrypt.hash(user.password, salt);
-
-    user.password = hash;
-
-    return User.create(user);
-  },
-
-  update(id, user) {
-    return User.update(user, { where: { id } })
-  },
-
-  async delete(id) {
-    const user = await User.findById(id);
-    if (user !== null) {
-      const isDeleted = await user.destroy();
-    } else {
-      throw new NotFoundError(USER_NOT_FOUND_MESSAGE);
-    }
+  async removeBasketItem(ownerId, bookId) {
+    const user = await User.findById(ownerId);
+    const book = await Book.findById(bookId);
+    return user.removeBasketItem(book);
   }
 };

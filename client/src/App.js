@@ -70,9 +70,9 @@ class App extends Component {
               {this.state.current && this.state.current.id ? (
                 <ul className="navbar-nav ml-auto">
                   <li>
-                    <Link to="/profile" className="nav-item nav-link">
+                    <Link to={'/users/'+ this.state.current.id } className="nav-item nav-link">
                       <i className="fa fa-user-astronaut"></i>&nbsp;
-                      {(this.state.current || {}).email}
+                      {(this.state.current || {}).firstName} {(this.state.current || {}).lastName}
                     </Link>
                   </li>
                   <li>

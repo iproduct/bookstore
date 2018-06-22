@@ -1,7 +1,14 @@
 const bcrypt = require('bcrypt');
 
+
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
     email: DataTypes.STRING,
@@ -10,9 +17,6 @@ module.exports = (sequelize, DataTypes) => {
     bio: DataTypes.TEXT,
     isAdmin: DataTypes.BOOLEAN
   }, {
-    classMethods: {
-      associate(models) {}
-    },
 
     instanceMethods: {
       hasValidPassword(pasword) {
@@ -20,6 +24,20 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   });
+
+  User.associate = ({ Basket, Book }) => {
+    User.hasOne(Basket, {
+      foreignKey: 'ownerId',
+      as: 'basket'
+    });
+
+    User.belongsToMany(Book, {
+      as: 'basketItems',
+      through: Basket,
+      foreignKey: 'ownerId',
+      otherKey: 'bookId'
+    });
+  };
 
   return User;
 };

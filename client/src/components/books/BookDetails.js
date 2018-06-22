@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import BooksService from '../../services/BooksService';
 import ReactDOM from 'react-dom';
 import { Redirect } from 'react-router';
 import Modal from 'react-modal';
+
+import BasketService from '../../services/BasketService';
+import BooksService from '../../services/BooksService';
 
 const customStyles = {
   content : {
@@ -29,12 +31,16 @@ class BookDetails extends Component {
       modalIsOpen: false
     };
 
+    this.addToBasket = this.addToBasket.bind(this);
     this.openModal = this.openModal.bind(this);
-    this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.save = this.save.bind(this);
     this.delete = this.delete.bind(this);
     this.onChange = this.onChange.bind(this);
+  }
+
+  async addToBasket() {
+    const item = await BasketService.addBookToBasket(this.state.book);
   }
 
   openModal() {
@@ -60,12 +66,6 @@ class BookDetails extends Component {
     this.setState({
       redirectToBooks: true
     });
-  }
-
-  afterOpenModal() {
-    // nothing so far but keep
-    // references are now sync'd and can be accessed.
-    // this.subtitle.style.color = '#f00';
   }
 
   closeModal() {
@@ -129,7 +129,6 @@ class BookDetails extends Component {
         <div>
           <div>
             <Modal isOpen={this.state.modalIsOpen}
-                   onAfterOpen={this.afterOpenModal}
                    onRequestClose={this.closeModal}
                    style={customStyles}
                    contentLabel="Book Modal">
@@ -200,25 +199,35 @@ class BookDetails extends Component {
                 </div>
 
               </form>
-              <button className="btn btn-success"
-                      onClick={this.save}>
-                <i class="fa fa-save"></i>&nbsp;
-                Save
-              </button>
+              <div class="details-button-group">
+                <button className="btn btn-success" onClick={this.save}>
+                  <i class="fa fa-save"></i>&nbsp;
+                  Save
+                </button>
 
-              <button className="btn btn-primary" onClick={this.closeModal}>
-                Cancel
-              </button>
+                <button className="btn btn-info" onClick={this.closeModal}>
+                  <i class="fa fa-times"></i>&nbsp;
+                  Cancel
+                </button>
+              </div>
             </Modal>
           </div>
-          <button className="btn btn-primary" onClick={this.openModal}>
-            <i class="fas fa-edit"></i>&nbsp;
-            Edit
-          </button>
-          <button className="btn btn-danger" onClick={this.delete}>
-            <i class="fas fa-trash"></i>&nbsp;
-            Delete
-          </button>
+          <div class="details-button-group">
+            <button className="btn btn-primary" onClick={this.openModal}>
+              <i class="fas fa-edit"></i>&nbsp;
+              Edit
+            </button>
+
+            <button className="btn btn-info" onClick={this.addToBasket}>
+              <i class="fa fa-shopping-basket"></i>&nbsp;
+              Add To Basket
+            </button>
+
+            <button className="btn btn-danger" onClick={this.delete}>
+              <i class="fas fa-trash"></i>&nbsp;
+              Delete
+            </button>
+          </div>
         </div>
       </div>
     );

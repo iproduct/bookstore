@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import { Redirect } from 'react-router';
 
 import UserService from '../../services/UserService';
 
@@ -8,7 +9,8 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {}
+      user: {},
+      redirectToLogin: false
     };
 
     this.register = this.register.bind(this);
@@ -23,6 +25,9 @@ class Register extends Component {
   async register(evt) {
     evt.preventDefault();
     const user = await UserService.register(this.state.user);
+    this.setState({
+      redirectToLogin: true
+    });
   }
 
   async componentDidMount() {}
@@ -97,11 +102,13 @@ class Register extends Component {
                       required />
             </div>
 
-            <button className="btn btn-lg btn-primary btn-block register-btn"
-                    onClick={this.register}>
+            <button className="btn btn-lg btn-primary btn-block register-btn" onClick={this.register}>
               Sign Up
             </button>
           </form>
+          <div>
+            {this.state.redirectToLogin && (<Redirect to="/login" />)}
+         </div>
         </div>
       </div>
     );
