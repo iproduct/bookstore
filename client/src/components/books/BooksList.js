@@ -67,7 +67,7 @@ class BooksList extends Component {
       <div className="BooksList">
         <div className="row operations-row">
           <button className="btn btn-primary btn-sm" onClick={this.openModal}>
-            <i class="fas fa-plus"></i>&nbsp;
+            <i class="fa fa-plus"></i>&nbsp;
             Add New Book
           </button>
         </div>
@@ -185,12 +185,12 @@ class BooksList extends Component {
               </form>
               <div className="details-button-group">
                 <button className="btn btn-success" onClick={this.addBook}>
-                  <i class="fas fa-plus"></i>&nbsp;
+                  <i class="fa fa-plus"></i>&nbsp;
                   Add
                 </button>
 
                 <button className="btn btn-info" onClick={this.closeModal}>
-                  <i class="fas fa-times"></i>&nbsp;
+                  <i class="fa fa-times"></i>&nbsp;
                   Cancel
                 </button>
               </div>

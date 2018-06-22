@@ -62,7 +62,7 @@ class App extends Component {
                 Books
               </Link>
               <Link to="/users" className="nav-item nav-link">
-                <i className="fas fa-users"></i>&nbsp;
+                <i className="fa fa-users"></i>&nbsp;
                 Users
               </Link>
             </div>
@@ -98,7 +98,7 @@ class App extends Component {
                   </li>
                   <li>
                     <Link to="/register" className="nav-item nav-link">
-                      <i className="fas fa-user-plus"></i>&nbsp;
+                      <i className="fa fa-user-plus"></i>&nbsp;
                       Register
                     </Link>
                   </li>

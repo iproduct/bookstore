@@ -87,7 +87,7 @@ class Basket extends Component {
               </button>
             </Link>
             <button class="btn btn-success">
-              <i class="fas fa-money-bill"></i>&nbsp;
+              <i class="fa fa-money-bill"></i>&nbsp;
               Purchase
             </button>
           </div>

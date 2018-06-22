@@ -36,5 +36,9 @@ export default {
 
   removeBasketItem(userId, itemId) {
     return Api.post(`api/basket/${itemId}`);
+  },
+
+  updateProfile(user) {
+    return Api.put(`authentication/current`, user);
   }
 };

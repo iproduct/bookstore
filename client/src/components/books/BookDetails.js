@@ -214,7 +214,7 @@ class BookDetails extends Component {
           </div>
           <div class="details-button-group">
             <button className="btn btn-primary" onClick={this.openModal}>
-              <i class="fas fa-edit"></i>&nbsp;
+              <i class="fa fa-edit"></i>&nbsp;
               Edit
             </button>
 

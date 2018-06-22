@@ -18,6 +18,16 @@ module.exports = {
     });
   },
 
+  async update(id, data) {
+    const user = await User.findById(id);
+    return user.update(data);
+
+
+    return User.findById(id,  {
+      attributes: { exclude: ['password'] }
+    });
+  },
+
   findByEmail(email) {
     return User.findOne({ where: { email } });
   },

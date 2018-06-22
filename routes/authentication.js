@@ -9,8 +9,15 @@ const USER_NOT_FOUND = 'User not found';
 
 router.get('/current', async function (req, res, next) {
   const user = await UserService.findById(req.session.userId);
-  res.json(user);
+  return res.json(user);
 });
+
+router.put('/current', async function (req, res, next) {
+  const { id, ...data } = req.body;
+  const user = await UserService.update(req.session.userId, data);
+  return res.json(user);
+});
+
 
 router.post('/login', async function (req, res, next) {
   const { username, password } = req.body;
