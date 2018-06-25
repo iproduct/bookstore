@@ -9,6 +9,7 @@ import Modal from 'react-modal';
 const customStyles = {
   content : {
     top                   : '50%',
+    width                 :'60%',
     left                  : '50%',
     right                 : 'auto',
     bottom                : 'auto',
@@ -31,23 +32,28 @@ class UserDetails extends Component {
     };
 
     this.save = this.save.bind(this);
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
+    this.openEditUserModal = this.openEditUserModal.bind(this);
+    this.closeEditUserModal = this.closeEditUserModal.bind(this);
     this.onChange = this.onChange.bind(this);
   }
 
   async save() {
     await UserService.updateProfile(this.state.editedUser);
+    this.setState({
+      user: Object.assign({}, this.state.editedUser)
+    });
+
+    this.closeEditUserModal();
   }
 
-  openModal() {
+  openEditUserModal() {
     this.setState({
       modalIsOpen: true,
       editedUser: Object.assign({}, this.state.user)
     });
   }
 
-  closeModal() {
+  closeEditUserModal() {
     this.setState({
       modalIsOpen: false,
       editedUser: {}
@@ -86,7 +92,7 @@ class UserDetails extends Component {
                   </tr>
                   <tr>
                     <td>Username</td>
-                    <td>{(this.state.user || {}).email}</td>
+                    <td>{(this.state.user || {}).username}</td>
                   </tr>
                   <tr>
                     <td>Email</td>
@@ -101,7 +107,7 @@ class UserDetails extends Component {
             </div>
           </div>
           <div className="details-button-group">
-             <button className="btn btn-info" onClick={this.openModal}>
+             <button className="btn btn-info" onClick={this.openEditUserModal}>
                <i className="fa fa-user-edit"></i>&nbsp;
                Edit
              </button>
@@ -109,7 +115,7 @@ class UserDetails extends Component {
 
            <Modal isOpen={this.state.modalIsOpen}
                    onAfterOpen={this.afterOpenModal}
-                   onRequestClose={this.closeModal}
+                   onRequestClose={this.closeEditUserModal}
                    style={customStyles}
                    contentLabel="Book Modal">
               <h2 ref={subtitle => this.subtitle = subtitle}>Edit your Profile</h2>
@@ -153,7 +159,7 @@ class UserDetails extends Component {
                   Save
                 </button>
 
-                <button className="btn btn-info" onClick={this.closeModal}>
+                <button className="btn btn-info" onClick={this.closeEditUserModal}>
                   <i class="fa fa-times"></i>&nbsp;
                   Cancel
                 </button>

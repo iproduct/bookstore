@@ -10,6 +10,7 @@ const customStyles = {
   content : {
     top                   : '50%',
     left                  : '50%',
+    width                 :'60%',
     right                 : 'auto',
     bottom                : 'auto',
     marginRight           : '-50%',
@@ -30,13 +31,13 @@ class BooksList extends Component {
       modalIsOpen: false
     };
 
-    this.openModal = this.openModal.bind(this);
+    this.openAddNewBookModal = this.openAddNewBookModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.addBook = this.addBook.bind(this);
     this.onChange = this.onChange.bind(this);
   }
 
-  openModal() {
+  openAddNewBookModal() {
     this.setState({ modalIsOpen: true });
   }
 
@@ -66,7 +67,7 @@ class BooksList extends Component {
     return (
       <div className="BooksList">
         <div className="row operations-row">
-          <button className="btn btn-primary btn-sm" onClick={this.openModal}>
+          <button className="btn btn-primary btn-sm" onClick={this.openAddNewBookModal}>
             <i class="fa fa-plus"></i>&nbsp;
             Add New Book
           </button>

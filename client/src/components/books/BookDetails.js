@@ -10,6 +10,7 @@ import BooksService from '../../services/BooksService';
 const customStyles = {
   content : {
     top                   : '50%',
+    width                 :'60%',
     left                  : '50%',
     right                 : 'auto',
     bottom                : 'auto',
@@ -32,7 +33,7 @@ class BookDetails extends Component {
     };
 
     this.addToBasket = this.addToBasket.bind(this);
-    this.openModal = this.openModal.bind(this);
+    this.openEditBookModal = this.openEditBookModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.save = this.save.bind(this);
     this.delete = this.delete.bind(this);
@@ -43,7 +44,7 @@ class BookDetails extends Component {
     const item = await BasketService.addBookToBasket(this.state.book);
   }
 
-  openModal() {
+  openEditBookModal() {
     this.setState({
       modalIsOpen: true,
       editedBook: Object.assign({}, this.state.book)
@@ -213,7 +214,7 @@ class BookDetails extends Component {
             </Modal>
           </div>
           <div class="details-button-group">
-            <button className="btn btn-primary" onClick={this.openModal}>
+            <button className="btn btn-primary" onClick={this.openEditBookModal}>
               <i class="fa fa-edit"></i>&nbsp;
               Edit
             </button>
@@ -224,7 +225,7 @@ class BookDetails extends Component {
             </button>
 
             <button className="btn btn-danger" onClick={this.delete}>
-              <i class="fas fa-trash"></i>&nbsp;
+              <i class="fa fa-trash"></i>&nbsp;
               Delete
             </button>
           </div>

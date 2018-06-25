@@ -20,7 +20,8 @@ module.exports = {
 
   async update(id, data) {
     const user = await User.findById(id);
-    return user.update(data);
+    await user.update(data);
+    return user;
 
 
     return User.findById(id,  {
@@ -48,10 +49,6 @@ module.exports = {
     user.password = hash;
 
     return User.create(user);
-  },
-
-  update(id, user) {
-    return User.update(user, { where: { id } })
   },
 
   async delete(id) {

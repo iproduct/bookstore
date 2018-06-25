@@ -107,7 +107,7 @@ class App extends Component {
           </div>
         </nav>
         <div>
-          {this.state.redirectToLogin && (<Redirect to="/login" />)}
+          { this.state.redirectToLogin && (<Redirect to="/login" />) }
          </div>
         <div>
           <Route exact path="/edit_profile" component={EditProfile}/>
