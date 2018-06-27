@@ -42,13 +42,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api/*', (err, req, res, next) => {
-  console.log('-----------------------------------------');
-  if (!req.session.userId) {
-    return res.status(UNAUTHORIZED).json({ status: UNAUTHORIZED, message: NOT_LOGGED_IN});
-  }
-  next();
-});
 
 // routes
 app.use('/', indexRouter);
@@ -56,6 +49,18 @@ app.use('/authentication', authenticationRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/books', bookRoutes);
 app.use('/api/basket', basketRoutes);
+
+
+// this doesn't get called for some reason
+app.use('/api/users', (err, req, res, next) => {
+  if (!req.session.userId) {
+    return res.status(UNAUTHORIZED).json({
+      status: UNAUTHORIZED,
+      message: NOT_LOGGED_IN
+    });
+  }
+  next();
+});
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => next(createError(404)));

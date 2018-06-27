@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import SearchInput, { createFilter } from 'react-search-input'
 import BooksService from '../../services/BooksService';
-
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 
@@ -18,7 +18,8 @@ const customStyles = {
   }
 };
 
-// Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
+const KEYS_TO_FILTERS = ['title', 'author', 'publisher', 'genre'];
+
 Modal.setAppElement(document.getElementById('root'));
 
 class BooksList extends Component {
@@ -28,13 +29,19 @@ class BooksList extends Component {
     this.state = {
       books: [],
       newBook: {},
-      modalIsOpen: false
+      modalIsOpen: false,
+      searchTerm: ''
     };
 
+    this.searchUpdated = this.searchUpdated.bind(this);
     this.openAddNewBookModal = this.openAddNewBookModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.addBook = this.addBook.bind(this);
     this.onChange = this.onChange.bind(this);
+  }
+
+  searchUpdated (searchTerm) {
+    this.setState({ searchTerm });
   }
 
   openAddNewBookModal() {
@@ -64,6 +71,9 @@ class BooksList extends Component {
   }
 
   render() {
+    const { searchTerm } = this.state;
+    const filteredBooks = this.state.books.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
+
     return (
       <div className="BooksList">
         <div className="row operations-row">
@@ -71,6 +81,7 @@ class BooksList extends Component {
             <i class="fa fa-plus"></i>&nbsp;
             Add New Book
           </button>
+          <SearchInput className="search-input" onChange={this.searchUpdated} />
         </div>
         <div>
           <table className="table">
@@ -89,7 +100,7 @@ class BooksList extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.books.map((book) => (
+              {filteredBooks.map((book) => (
                 <tr>
                   <td>
                     <img src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1394340655i/1931116._SX120_.jpg" />

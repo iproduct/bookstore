@@ -3,6 +3,8 @@ import { Route, Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 
 import UserService from './services/UserService';
+
+import Home from './components/Home';
 import BooksList from './components/books/BooksList';
 import BookDetails from './components/books/BookDetails';
 import UsersList from './components/users/UsersList';
@@ -40,10 +42,12 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.props);
+    debugger;
     return (
       <div className="App">
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <Link to="/books" className="navbar-brand">
+          <Link to="/" className="navbar-brand">
             Bookstore
           </Link>
 
@@ -56,16 +60,18 @@ class App extends Component {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div className="navbar-nav">
-              <Link to="/books" className="nav-item nav-link">
-                <i className="fa fa-book"></i>&nbsp;
-                Books
-              </Link>
-              <Link to="/users" className="nav-item nav-link">
-                <i className="fa fa-users"></i>&nbsp;
-                Users
-              </Link>
-            </div>
+              {this.state.current && this.state.current.id && (
+                <div className="navbar-nav">
+                  <Link to="/books" className="nav-item nav-link">
+                    <i className="fa fa-book"></i>&nbsp;
+                    Books
+                  </Link>
+                  <Link to="/users" className="nav-item nav-link">
+                    <i className="fa fa-users"></i>&nbsp;
+                    Users
+                  </Link>
+                </div>
+              )}
 
               {this.state.current && this.state.current.id ? (
                 <ul className="navbar-nav ml-auto">
@@ -110,12 +116,13 @@ class App extends Component {
           { this.state.redirectToLogin && (<Redirect to="/login" />) }
          </div>
         <div>
+          <Route exact path="/" component={Home}/>
           <Route exact path="/edit_profile" component={EditProfile}/>
           <Route exact path="/books" component={BooksList}/>
           <Route exact path="/books/:id" component={BookDetails}/>
           <Route exact path="/login" component={Login}/>
           <Route exact path="/users" component={UsersList}/>
-          <Route exact path="/users/:id" component={UserDetails}/>
+          <Route exact path="/users/:id" component={UserDetails} current={this.state.current} />
           <Route exact path="/basket" component={Basket}/>
           <Route exact path="/register" component={Register}/>
         </div>

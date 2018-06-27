@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 
 import UserService from '../../services/UserService';
 
@@ -22,7 +23,6 @@ const customStyles = {
 Modal.setAppElement(document.getElementById('root'));
 
 class UserDetails extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -68,6 +68,8 @@ class UserDetails extends Component {
 
   async componentDidMount() {
     // take current from api for now, optimize later
+    console.log(this.props);
+    debugger;
     const { id } = this.props.match.params;
     const user = await UserService.get(id);
     this.setState({ user });
@@ -171,4 +173,4 @@ class UserDetails extends Component {
   }
 }
 
-export default UserDetails;
+export default withRouter(UserDetails);
