@@ -15,6 +15,8 @@ const authenticationRoutes = require('./routes/authentication');
 
 const { UNAUTHORIZED } = require('http-status-codes');
 
+const Docs = require('express-api-doc');
+
 const app = express();
 
 const NOT_LOGGED_IN = 'You are not logged in';
@@ -75,5 +77,12 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.json({ error: err.toString() });
 });
+
+const docs = new Docs(app);
+
+docs.generate({
+  path:     './documentation.html',
+});
+
 
 module.exports = app;
